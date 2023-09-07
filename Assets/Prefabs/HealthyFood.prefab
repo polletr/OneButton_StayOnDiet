@@ -127,5 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da4f0a5af198b604c893959a2eca8350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
+  calorieAmount: 100
+  foodPoints: 200
+  speed: 8
   lowerBound: -10

@@ -8,7 +8,7 @@ public class SpawnManager : MonoBehaviour
     public float minInterval = 1.0f;
     public float maxInterval = 2.5f;
     private float spawnPosX = 0;
-    private float spawnPosY = 6;
+    private float spawnPosY = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +25,6 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnRandomFruits()
     {
-        // Calculate a new random interval each time this method is called
-        float randomInterval = Random.Range(minInterval, maxInterval);
 
         int fruitIndex = Random.Range(0, foodPrefabs.Length);
         Vector3 spawnPos = new Vector3(spawnPosX, spawnPosY, 0);

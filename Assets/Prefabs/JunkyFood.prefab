@@ -125,8 +125,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 863665591980823719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ba2957b13ae6234895965ecd1f8ff2c, type: 3}
+  m_Script: {fileID: 11500000, guid: da4f0a5af198b604c893959a2eca8350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  calorieAmount: 600
+  foodPoints: -200
+  speed: 10
   lowerBound: -10
