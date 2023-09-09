@@ -11,6 +11,9 @@ public class FoodMovement : MonoBehaviour
     public float finalDecline = 0f;
     public bool isCurving = true;
     public int calories = 0;
+    public float lowerBound = -10;
+    [SerializeField]
+    private int foodPoints;
     #endregion
 
     // Start is called before the first frame update
@@ -22,6 +25,11 @@ public class FoodMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.y < lowerBound)
+        {
+
+            Destroy(gameObject);
+        }
         #region If statement to determine the movement between the spawner and the player
         if (transform.position.x >= initialDecline)
         {
@@ -42,12 +50,11 @@ public class FoodMovement : MonoBehaviour
         }
         #endregion
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Destroy(targetFood);
-        }
+        CalorieManager.Instance.AddCalorie(calories);
+        ScoreManager.Instance.AddPoints(foodPoints);
+        Destroy(gameObject);
     }
 }
 
