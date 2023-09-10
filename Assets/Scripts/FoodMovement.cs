@@ -5,15 +5,21 @@ using UnityEngine;
 public class FoodMovement : MonoBehaviour
 {
     #region Variable Declarations
-    public float speed = 2.0f;
-    public GameObject targetFood;
-    public float initialDecline = 2.25f;
-    public float finalDecline = 0f;
-    public bool isCurving = true;
-    public int calories = 0;
-    public float lowerBound = -10;
+    [SerializeField]
+    private float speed = 2.0f;
+    [SerializeField]
+    private float initialDecline = 2.25f;
+    [SerializeField]
+    private float finalDecline = 0f;
+    [SerializeField]
+    private float calories;
+    [SerializeField]
+    private float lowerBound = -10;
     [SerializeField]
     private int foodPoints;
+
+    public bool isCurving = true;
+    public GameObject targetFood;
     #endregion
 
     // Start is called before the first frame update
@@ -52,9 +58,13 @@ public class FoodMovement : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        CalorieManager.Instance.AddCalorie(calories);
-        ScoreManager.Instance.AddPoints(foodPoints);
-        Destroy(gameObject);
+        if (other.CompareTag("Player"))
+        {
+            CalorieManager.Instance.AddCalorie(calories);
+            ScoreManager.Instance.AddPoints(foodPoints);
+            Destroy(gameObject);
+        }
+        
     }
 }
 

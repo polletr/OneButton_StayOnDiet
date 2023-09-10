@@ -20,12 +20,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             playerCollider.enabled = true;
-            this.gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            this.gameObject.transform.localScale = new Vector3(7.0f, 7.0f, 7.0f);
         }
         else
         {
             playerCollider.enabled = false;
-            this.gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            this.gameObject.transform.localScale = new Vector3(6.0f, 6.0f, 6.0f);
         }
     }
 }
