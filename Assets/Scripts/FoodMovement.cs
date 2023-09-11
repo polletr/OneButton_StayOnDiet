@@ -18,6 +18,14 @@ public class FoodMovement : MonoBehaviour
     [SerializeField]
     private int foodPoints;
 
+    private AudioSource _audioSource;
+
+    [SerializeField]
+    private AudioClip chewingClip;
+
+    [SerializeField]
+    private AudioClip splashClip;
+
     public bool isCurving = true;
     public GameObject targetFood;
     #endregion
@@ -25,7 +33,7 @@ public class FoodMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -33,6 +41,8 @@ public class FoodMovement : MonoBehaviour
     {
         if (transform.position.y < lowerBound)
         {
+            _audioSource.clip = splashClip;
+            _audioSource.Play();
 
             Destroy(gameObject);
         }
@@ -60,6 +70,8 @@ public class FoodMovement : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            _audioSource.clip = chewingClip;
+            _audioSource.Play();
             CalorieManager.Instance.AddCalorie(calories);
             ScoreManager.Instance.AddPoints(foodPoints);
             Destroy(gameObject);
