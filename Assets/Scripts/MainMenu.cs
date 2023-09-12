@@ -10,5 +10,15 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadSceneAsync(1);
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void MaybeNextYear()
+    {
+        SceneManager.LoadSceneAsync(0);
+    }
+
 
 }

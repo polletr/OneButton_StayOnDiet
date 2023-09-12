@@ -38,7 +38,7 @@ public class ScoreManager : Singleton<ScoreManager>
 
     public void UpdatePoints()
     {
-        PointsText.text = "Score : " + Mathf.FloorToInt(points);
+        PointsText.text = "    Score : " + Mathf.FloorToInt(points);
     }
 
 

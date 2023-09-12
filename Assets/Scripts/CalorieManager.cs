@@ -41,7 +41,7 @@ public class CalorieManager : Singleton<CalorieManager>
         if (currentCal >= maxCal || currentCal <= minCal)
         {
             Debug.Log("GameOver");
-            SceneManager.LoadSceneAsync(0);
+            SceneManager.LoadSceneAsync(2);
         }
     }
 
