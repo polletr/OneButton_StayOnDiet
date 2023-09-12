@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ScoreManager : Singleton<ScoreManager>
 {
-
-    [SerializeField]
-    TMP_Text text;
-
     [SerializeField]
     private int pointsOverTime;
 
-    private int points;
+    private float points;
+
+    [SerializeField]
+    private TMP_Text PointsText;
 
     // Start is called before the first frame update
     void Start()
@@ -20,16 +20,26 @@ public class ScoreManager : Singleton<ScoreManager>
         points = 0;
     }
 
+   
+
     // Update is called once per frame
     void Update()
     {
-        points += Mathf.RoundToInt(pointsOverTime * Time.deltaTime);
-        Debug.Log(points);
+        points += pointsOverTime * Time.deltaTime;
+        UpdatePoints();
 
     }
 
     public void AddPoints(int foodPoints)
     {
         points += foodPoints;
+        UpdatePoints();
     }
+
+    public void UpdatePoints()
+    {
+        PointsText.text = "Score : " + Mathf.FloorToInt(points);
+    }
+
+
 }

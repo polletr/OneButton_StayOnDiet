@@ -70,13 +70,14 @@ public class FoodMovement : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            _audioSource.clip = chewingClip;
-            _audioSource.Play();
+           
             CalorieManager.Instance.AddCalorie(calories);
             ScoreManager.Instance.AddPoints(foodPoints);
             Destroy(gameObject);
+             _audioSource.clip = chewingClip;
+             _audioSource.Play();
         }
-        
+
     }
 }
 

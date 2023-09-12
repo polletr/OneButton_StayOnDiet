@@ -111,8 +111,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 0.25375652
+  m_Height: 1.0707912
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &9022137464418060149
@@ -148,6 +148,8 @@ MonoBehaviour:
   finalDecline: 0
   calories: 120
   lowerBound: -10
-  foodPoints: 0
+  foodPoints: 5
+  chewingClip: {fileID: 0}
+  splashClip: {fileID: 0}
   isCurving: 1
   targetFood: {fileID: 9022137464418060155}
