@@ -146,7 +146,7 @@ MonoBehaviour:
   speed: 2
   initialDecline: 2.25
   finalDecline: 0
-  calories: 10
+  calories: 80
   lowerBound: -10
   foodPoints: 20
   chewingClip: {fileID: 0}
