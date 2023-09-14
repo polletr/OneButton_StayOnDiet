@@ -11,9 +11,13 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private float maxInterval = 2.5f;
 
-    public GameObject[] prefabs = new GameObject[10];
+    public GameObject[] prefabsLevel1 = new GameObject[4];
+    public GameObject[] prefabsLevel2 = new GameObject[5];
+    public GameObject[] prefabsLevel3 = new GameObject[7];
+    public GameObject[] prefabsLevel4 = new GameObject[9];
+    public GameObject[] prefabsLevel5 = new GameObject[13];
     #endregion
- 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,9 +34,9 @@ public class Spawner : MonoBehaviour
     public void FoodSpawn()
     {
         //Chose
-        int indiceAleatorio = Random.Range(0, prefabs.Length);
+        int indiceAleatorio = Random.Range(0, prefabsLevel1.Length);
         //Instantiate the target food in the spawner original position
-        GameObject prefabSelecionado = prefabs[indiceAleatorio];
+        GameObject prefabSelecionado = prefabsLevel1[indiceAleatorio];
         Instantiate(prefabSelecionado, transform.position, Quaternion.identity);
     }
 }

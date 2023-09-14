@@ -36,8 +36,6 @@ public class CalorieManager : Singleton<CalorieManager>
         fill.color = gradient.Evaluate(slider.normalizedValue);
         
         
-        Debug.Log(currentCal);
-
         if (currentCal >= maxCal || currentCal <= minCal)
         {
             Debug.Log("GameOver");
