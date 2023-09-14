@@ -31,7 +31,7 @@ public class CalorieManager : Singleton<CalorieManager>
     // Update is called once per frame
     void LateUpdate()
     {
-        //currentCal -= drainRatio * Time.deltaTime;
+        currentCal -= drainRatio * Time.deltaTime;
         slider.value = currentCal;
         fill.color = gradient.Evaluate(slider.normalizedValue);
         
@@ -47,10 +47,9 @@ public class CalorieManager : Singleton<CalorieManager>
         currentCal += foodCal;
     }
 
-    //public void SetHunger(float currentCal)
-   // {
-
-        //slider.value = currentCal;
-    //}
+    public void IncreaseHunger(float multiplier)
+    {
+        drainRatio *= multiplier/1000f;
+    }
         
 }

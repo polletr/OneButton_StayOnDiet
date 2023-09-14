@@ -6,8 +6,8 @@ public class FoodMovement : MonoBehaviour
 {
     #region Variable Declarations
     //food speed movement
-    [SerializeField]
-    public float speed = 1.0f;
+
+    private float speed = 2.0f;
 
     /*initialDecline = I will call in this variables the curve's heighest points
       finalDecline = I will call in this variables the curve's end point
@@ -50,6 +50,7 @@ public class FoodMovement : MonoBehaviour
 
     public GameObject targetFood;
     #endregion
+
 
     // Start is called before the first frame update
     void Start()
@@ -182,6 +183,11 @@ public class FoodMovement : MonoBehaviour
                 }
                 break; */
         }
+    }
+
+    public void IncreaseSpeed(float newSpeed)
+    {
+        speed = newSpeed;
     }
     
 }

@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Spawner : MonoBehaviour
 {
     #region Variables Declaration
-    
+
+    private float timer = 0f;
+
     [SerializeField]
-    private float minInterval = 1.0f;
+    private float minInterval = 0.5f;
     [SerializeField]
-    private float maxInterval = 2.5f;
+    private float maxInterval = 2f;
 
     float runningTime = 0.0f;
 
@@ -20,22 +23,34 @@ public class Spawner : MonoBehaviour
     public GameObject[] prefabsLevel5 = new GameObject[13];
     #endregion
 
+    public UnityEvent<float> onIncreaseSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
         //Creation of a execution in loop considering a specific delay
-        InvokeRepeating("FoodSpawn", 1, Random.Range(minInterval, maxInterval));
+        //Invoke("FoodSpawn", 1);
     }
 
     // Update is called once per frame
     void Update()
     {
         runningTime += Time.deltaTime;
+
+        if (timer >= Random.Range(minInterval, maxInterval))
+        {
+            Invoke("FoodSpawn",0);
+            timer = 0;
+        }
+        else
+        {
+            timer += Time.deltaTime;
+        }
     }
 
     public void FoodSpawn()
     {
-        if (runningTime < 30.0f)
+        if (runningTime < 15.0f)
         {
             int indiceAleatorio = Random.Range(0, prefabsLevel1.Length);
             //Instantiate the target food in the spawner original position
@@ -43,7 +58,7 @@ public class Spawner : MonoBehaviour
             Instantiate(prefabSelecionado, transform.position, Quaternion.identity);
             Debug.Log("Spawnando Array 1");
         }
-        else if (runningTime < 90.0f)
+        else if (runningTime < 30.0f)
         {
             int indiceAleatorio = Random.Range(0, prefabsLevel2.Length);
             //Instantiate the target food in the spawner original position
@@ -51,26 +66,29 @@ public class Spawner : MonoBehaviour
             Instantiate(prefabSelecionado, transform.position, Quaternion.identity);
             Debug.Log("Spawnando Array 2");
         }
-        else if (runningTime < 150.0f)
+        else if (runningTime < 75.0f)
         {
+            onIncreaseSpeed?.Invoke(2.5f);
+            maxInterval = 1.5f;
             int indiceAleatorio = Random.Range(0, prefabsLevel3.Length);
             //Instantiate the target food in the spawner original position
             GameObject prefabSelecionado = prefabsLevel3[indiceAleatorio];
             Instantiate(prefabSelecionado, transform.position, Quaternion.identity);
             Debug.Log("Spawnando Array 3");
         }
-        else if (runningTime < 210.0f)
+        else if (runningTime < 100.0f)
         {
-            speed = 1.5f;
+            onIncreaseSpeed?.Invoke(3f);
             int indiceAleatorio = Random.Range(0, prefabsLevel4.Length);
             //Instantiate the target food in the spawner original position
             GameObject prefabSelecionado = prefabsLevel4[indiceAleatorio];
             Instantiate(prefabSelecionado, transform.position, Quaternion.identity);
             Debug.Log("Spawnando Array 4");
         }
-        else if (runningTime > 210.0f)
+        else if (runningTime >= 100.0f)
         {
-            speed = 2.0f
+            onIncreaseSpeed?.Invoke(4f);
+            maxInterval = 1f;
             int indiceAleatorio = Random.Range(0, prefabsLevel5.Length);
             //Instantiate the target food in the spawner original position
             GameObject prefabSelecionado = prefabsLevel5[indiceAleatorio];

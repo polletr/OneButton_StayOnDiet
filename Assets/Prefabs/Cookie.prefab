@@ -102,7 +102,7 @@ MonoBehaviour:
   speed: 2
   foodWasAccepted: 0
   calories: 300
-  foodPoints: 5
+  foodPoints: -20
   chewingClip: {fileID: 0}
   splashClip: {fileID: 0}
   targetFood: {fileID: 0}

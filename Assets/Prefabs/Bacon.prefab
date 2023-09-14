@@ -145,8 +145,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   foodWasAccepted: 0
-  calories: 10
-  foodPoints: 20
+  calories: 650
+  foodPoints: -20
   chewingClip: {fileID: 0}
   splashClip: {fileID: 0}
   targetFood: {fileID: 9022137464418060155}
