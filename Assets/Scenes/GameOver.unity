@@ -552,7 +552,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Keep on Diet!
+  m_text: Keep up the Diet!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 35519e0d84617fc4798f5b47990a99e3, type: 2}
   m_sharedMaterial: {fileID: 3560066603407624031, guid: 35519e0d84617fc4798f5b47990a99e3, type: 2}

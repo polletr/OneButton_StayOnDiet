@@ -49,7 +49,7 @@ public class CalorieManager : Singleton<CalorieManager>
 
     public void IncreaseHunger(float multiplier)
     {
-        drainRatio *= multiplier/1000f;
+        drainRatio *= (1+multiplier/100f);
     }
         
 }

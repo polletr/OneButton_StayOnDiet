@@ -11,6 +11,11 @@ public class PlayerController : MonoBehaviour
 
     private Collider headCollider;
 
+    private float closingMouthTimer = 0f;
+
+    bool mouthOpen = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,14 +27,24 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             playerCollider.enabled = true;
             headCollider.enabled = false;
             this.gameObject.transform.localScale = new Vector3(7.0f, 7.0f, 7.0f);
+            mouthOpen = true;
         }
-        else
+
+        if (mouthOpen)
         {
+            closingMouthTimer += Time.deltaTime;
+        }
+
+        if (closingMouthTimer > 0.3f)
+        {
+            mouthOpen = false;
+            closingMouthTimer = 0f;
             playerCollider.enabled = false;
             headCollider.enabled = true;
             this.gameObject.transform.localScale = new Vector3(6.0f, 6.0f, 6.0f);

@@ -55,7 +55,7 @@ public class FoodMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _audioSource = GetComponent<AudioSource>();
+        //_audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -113,8 +113,8 @@ public class FoodMovement : MonoBehaviour
             CalorieManager.Instance.AddCalorie(calories);
             ScoreManager.Instance.AddPoints(foodPoints);
             Destroy(gameObject);
-             _audioSource.clip = chewingClip;
-             _audioSource.Play();
+             //_audioSource.clip = chewingClip;
+             //_audioSource.Play();
         }
 
         if (other.CompareTag("MouthClosed"))
