@@ -31,14 +31,13 @@ public class CalorieManager : Singleton<CalorieManager>
     // Update is called once per frame
     void LateUpdate()
     {
-        currentCal -= drainRatio * Time.deltaTime;
+        //currentCal -= drainRatio * Time.deltaTime;
         slider.value = currentCal;
         fill.color = gradient.Evaluate(slider.normalizedValue);
         
         
         if (currentCal >= maxCal || currentCal <= minCal)
         {
-            Debug.Log("GameOver");
             SceneManager.LoadSceneAsync(2);
         }
     }

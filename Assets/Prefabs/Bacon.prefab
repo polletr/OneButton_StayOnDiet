@@ -30,7 +30,7 @@ RectTransform:
   m_GameObject: {fileID: 9022137464418060155}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -111,8 +111,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.48739624
-  m_Height: 1.0468795
+  m_Radius: 0.1
+  m_Height: 0.7
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &9022137464418060149
@@ -144,17 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  initialDecline: 2.25
-  finalDecline: 0
-  initialDecline2: -1.65
-  finalDecline2: 3.3
-  initialDecline3: 1.25
-  finalDecline3: 2.5
-  initialDecline4: -3
-  finalDecline4: -6
   foodWasAccepted: 0
   calories: 10
-  lowerBound: -10
   foodPoints: 20
   chewingClip: {fileID: 0}
   splashClip: {fileID: 0}

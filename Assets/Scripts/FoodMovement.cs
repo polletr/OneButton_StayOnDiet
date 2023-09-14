@@ -7,7 +7,7 @@ public class FoodMovement : MonoBehaviour
     #region Variable Declarations
     //food speed movement
     [SerializeField]
-    private float speed = 1.0f;
+    public float speed = 1.0f;
 
     /*initialDecline = I will call in this variables the curve's heighest points
       finalDecline = I will call in this variables the curve's end point
@@ -16,21 +16,13 @@ public class FoodMovement : MonoBehaviour
     The first one is between the spawner and the player
     The other 3 are possibilities of curve after the food hits the player's head after be rejected of him
      */
-    [SerializeField]
     private float initialDecline = 2.25f;
-    [SerializeField]
     private float finalDecline = 0f;
-    [SerializeField]
     private float initialDecline2 = -1.65f;
-    [SerializeField]
     private float finalDecline2 = -3.3f;
-    [SerializeField]
-    private float initialDecline3 = 1.25f;
-    [SerializeField]
-    private float finalDecline3 = 2.5f;
-    [SerializeField]
+    private float initialDecline3 = 3.0f;
+    private float finalDecline3 = 6.0f;
     private float initialDecline4 = -3.0f;
-    [SerializeField]
     private float finalDecline4 = -6.0f;
 
     public bool foodWasAccepted = false;
@@ -39,8 +31,7 @@ public class FoodMovement : MonoBehaviour
     [SerializeField]
     private float calories;
     //lowest scene height point, where the food will drop if the player don't eat it
-    [SerializeField]
-    private float lowerBound = 0.6f;
+    private float lowerBound = 0.2f;
     //player's scorepoints
     [SerializeField]
     private int foodPoints;
@@ -82,7 +73,6 @@ public class FoodMovement : MonoBehaviour
         //When the food hit the floor
         if (transform.position.y <= lowerBound)
         {
-            Debug.Log("VAI AIR NO CHAO");
 /*            _audioSource.clip = splashClip;
             _audioSource.Play();
 */
@@ -128,9 +118,8 @@ public class FoodMovement : MonoBehaviour
 
         if (other.CompareTag("MouthClosed"))
         {
-            randomChoice = Random.Range(0,3); //This variable will chose between the tree possibilities of curve movement
+            randomChoice = Random.Range(0, 2); //This variable will chose between the tree possibilities of curve movement
             headHit = true;
-            Debug.Log("atingiu");
         }
 
     }
@@ -142,45 +131,43 @@ public class FoodMovement : MonoBehaviour
                 //Randomic movement one
                 if (transform.position.x >= initialDecline2)
                 {
-                    transform.Translate(Vector3.up * Time.deltaTime * speed);
+                    transform.Translate(Vector3.down * Time.deltaTime * speed);
                     transform.Translate(Vector3.left * Time.deltaTime * speed);
                 }
-                else if (transform.position.x > finalDecline2)
+                /*else if (transform.position.x > finalDecline2)
                 {
                     transform.Translate(Vector3.left * Time.deltaTime * speed);
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
-                }
+                }*/
                 else
                 {
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
                 }
-                Debug.Log("Case 0");
                 break;
-
+                
             case 1:
                 //Randomic movement two
-                if (transform.position.x <= -initialDecline3)
+                if (transform.position.x <= initialDecline3)
                 {
-                    transform.Translate(Vector3.up * Time.deltaTime * speed);
+                    transform.Translate(Vector3.down * Time.deltaTime * speed);
                     transform.Translate(Vector3.right * Time.deltaTime * speed);  
                 }
-                else if (transform.position.x < -finalDecline3)
+                /*else if (transform.position.x < -finalDecline3)
                 {
                     transform.Translate(Vector3.right * Time.deltaTime * speed);
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
-                }
+                }*/
                 else
                 {
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
                 }
-                Debug.Log("Case 1");
                 break;
 
-            case 2:
+            /*case 2:
                 //Randomic movement tree
-                if (transform.position.x <= -initialDecline4)
+                if (transform.position.x <= initialDecline4)
                 {
-                    transform.Translate(Vector3.up * Time.deltaTime * speed);
+                   //transform.Translate(Vector3.up * Time.deltaTime * speed);
                     transform.Translate(Vector3.right * Time.deltaTime * speed);
                     
                 }
@@ -193,8 +180,7 @@ public class FoodMovement : MonoBehaviour
                 {
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
                 }
-                Debug.Log("Case 2");
-                break;
+                break; */
         }
     }
     
