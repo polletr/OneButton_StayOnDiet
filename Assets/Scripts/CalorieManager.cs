@@ -12,8 +12,6 @@ public class CalorieManager : Singleton<CalorieManager>
     private float currentCal;
     [SerializeField]
     private float drainRatio = 50.0f;
-    private float highWarning;
-    private float lowWarning;
 
     public Slider slider;
     public Gradient gradient;
@@ -23,9 +21,6 @@ public class CalorieManager : Singleton<CalorieManager>
     void Start()
     {
         currentCal = maxCal * 0.5f;
-        highWarning = maxCal * 0.8f;
-        lowWarning = maxCal * 0.2f;
-        
     }
 
     // Update is called once per frame
