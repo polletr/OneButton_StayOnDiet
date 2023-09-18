@@ -15,13 +15,18 @@ public class PlayerController : MonoBehaviour
 
     bool mouthOpen = false;
 
+    private Animator mAnimator;
+
 
     // Start is called before the first frame update
     void Start()
     {
         playerCollider = GetComponent<Collider>();
         headCollider = mouthClosed.GetComponent<Collider>();
-        
+        mAnimator = GetComponent<Animator>();
+
+        playerCollider.enabled = false;
+
     }
 
     // Update is called once per frame
@@ -32,7 +37,7 @@ public class PlayerController : MonoBehaviour
         {
             playerCollider.enabled = true;
             headCollider.enabled = false;
-            this.gameObject.transform.localScale = new Vector3(7.0f, 7.0f, 7.0f);
+            mAnimator.SetTrigger("Eating");
             mouthOpen = true;
         }
 
@@ -47,7 +52,6 @@ public class PlayerController : MonoBehaviour
             closingMouthTimer = 0f;
             playerCollider.enabled = false;
             headCollider.enabled = true;
-            this.gameObject.transform.localScale = new Vector3(6.0f, 6.0f, 6.0f);
         }
     }
 }
