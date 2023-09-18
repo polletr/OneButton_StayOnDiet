@@ -146,6 +146,7 @@ MonoBehaviour:
   foodWasAccepted: 0
   calories: 750
   foodPoints: 20
-  chewingClip: {fileID: 0}
-  splashClip: {fileID: 0}
+  chewingClip: {fileID: 8300000, guid: b91a7de58a63f2141adcb2600aa71417, type: 3}
+  splashClip: {fileID: 8300000, guid: 2f9dcaf68903c8e48b98ff2e32e2a023, type: 3}
+  hitHeadClip: {fileID: 8300000, guid: 79307b52fd161e04d8d3b0a028a89598, type: 3}
   targetFood: {fileID: 9022137464418060155}

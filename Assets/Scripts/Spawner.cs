@@ -10,9 +10,9 @@ public class Spawner : MonoBehaviour
     private float timer = 0f;
 
     [SerializeField]
-    private float minInterval = 0.5f;
+    private float minInterval = 0.3f;
     [SerializeField]
-    private float maxInterval = 2f;
+    private float maxInterval = 4f;
 
     float runningTime = 0.0f;
 
@@ -25,9 +25,13 @@ public class Spawner : MonoBehaviour
 
     public UnityEvent<float> onIncreaseSpeed;
 
+    private AudioSource _audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
+
+        _audioSource = GetComponent<AudioSource>();
         //Creation of a execution in loop considering a specific delay
         //Invoke("FoodSpawn", 1);
     }
@@ -50,6 +54,8 @@ public class Spawner : MonoBehaviour
 
     public void FoodSpawn()
     {
+        _audioSource.Play();
+
         if (runningTime < 15.0f)
         {
             int indiceAleatorio = Random.Range(0, prefabsLevel1.Length);
@@ -69,7 +75,7 @@ public class Spawner : MonoBehaviour
         else if (runningTime < 75.0f)
         {
             onIncreaseSpeed?.Invoke(2.5f);
-            maxInterval = 1.5f;
+            maxInterval = 2f;
             int indiceAleatorio = Random.Range(0, prefabsLevel3.Length);
             //Instantiate the target food in the spawner original position
             GameObject prefabSelecionado = prefabsLevel3[indiceAleatorio];
@@ -79,6 +85,7 @@ public class Spawner : MonoBehaviour
         else if (runningTime < 100.0f)
         {
             onIncreaseSpeed?.Invoke(3f);
+            maxInterval = 1.5f;
             int indiceAleatorio = Random.Range(0, prefabsLevel4.Length);
             //Instantiate the target food in the spawner original position
             GameObject prefabSelecionado = prefabsLevel4[indiceAleatorio];

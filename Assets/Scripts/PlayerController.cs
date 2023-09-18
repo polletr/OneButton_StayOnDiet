@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     private Animator mAnimator;
 
+    private AudioSource _audioSource;
 
     // Start is called before the first frame update
     void Start()

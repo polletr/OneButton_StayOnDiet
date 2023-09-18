@@ -48,14 +48,19 @@ public class FoodMovement : MonoBehaviour
     [SerializeField]
     private AudioClip splashClip;
 
+    [SerializeField]
+    private AudioClip hitHeadClip;
+
     public GameObject targetFood;
+
+    private GameObject background;
     #endregion
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //_audioSource = GetComponent<AudioSource>();
+        background = GameObject.Find("Background");
     }
 
     // Update is called once per frame
@@ -74,9 +79,9 @@ public class FoodMovement : MonoBehaviour
         //When the food hit the floor
         if (transform.position.y <= lowerBound)
         {
-/*            _audioSource.clip = splashClip;
-            _audioSource.Play();
-*/
+            background.GetComponent<AudioSource>().clip = splashClip;
+            background.GetComponent<AudioSource>().Play();
+
             Destroy(gameObject);
         }
     }
@@ -112,15 +117,21 @@ public class FoodMovement : MonoBehaviour
            
             CalorieManager.Instance.AddCalorie(calories);
             ScoreManager.Instance.AddPoints(foodPoints);
+
+            other.GetComponentInParent<AudioSource>().clip = chewingClip;
+            other.GetComponentInParent<AudioSource>().Play();
             Destroy(gameObject);
-             //_audioSource.clip = chewingClip;
-             //_audioSource.Play();
         }
 
         if (other.CompareTag("MouthClosed"))
         {
             randomChoice = Random.Range(0, 2); //This variable will chose between the tree possibilities of curve movement
             headHit = true;
+
+            other.GetComponentInParent<AudioSource>().clip = hitHeadClip;
+            other.GetComponentInParent<AudioSource>().Play();
+
+
         }
 
     }
@@ -135,11 +146,6 @@ public class FoodMovement : MonoBehaviour
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
                     transform.Translate(Vector3.left * Time.deltaTime * speed);
                 }
-                /*else if (transform.position.x > finalDecline2)
-                {
-                    transform.Translate(Vector3.left * Time.deltaTime * speed);
-                    transform.Translate(Vector3.down * Time.deltaTime * speed);
-                }*/
                 else
                 {
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
@@ -153,35 +159,12 @@ public class FoodMovement : MonoBehaviour
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
                     transform.Translate(Vector3.right * Time.deltaTime * speed);  
                 }
-                /*else if (transform.position.x < -finalDecline3)
-                {
-                    transform.Translate(Vector3.right * Time.deltaTime * speed);
-                    transform.Translate(Vector3.down * Time.deltaTime * speed);
-                }*/
                 else
                 {
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
                 }
                 break;
 
-            /*case 2:
-                //Randomic movement tree
-                if (transform.position.x <= initialDecline4)
-                {
-                   //transform.Translate(Vector3.up * Time.deltaTime * speed);
-                    transform.Translate(Vector3.right * Time.deltaTime * speed);
-                    
-                }
-                else if (transform.position.x < -finalDecline4)
-                {
-                    transform.Translate(Vector3.right * Time.deltaTime * speed);
-                    transform.Translate(Vector3.down * Time.deltaTime * speed);
-                }
-                else
-                {
-                    transform.Translate(Vector3.down * Time.deltaTime * speed);
-                }
-                break; */
         }
     }
 
