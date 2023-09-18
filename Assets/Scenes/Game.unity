@@ -1572,7 +1572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe85c8e05ec8dc4b9593b1bae202dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minInterval: 0.5
+  minInterval: 0.3
   maxInterval: 4
   prefabsLevel1:
   - {fileID: 9022137464418060155, guid: 0787dc19af7145d43bc0f54f8110e9e9, type: 3}

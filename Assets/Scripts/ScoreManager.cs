@@ -24,10 +24,10 @@ public class ScoreManager : Singleton<ScoreManager>
     {
         points = 0;
         fractionalPoints = 0f;
+        // Load the high score from PlayerPrefs
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
         UpdateHighScoreText();
     }
-
-   
 
     // Update is called once per frame
     void Update()
@@ -46,10 +46,6 @@ public class ScoreManager : Singleton<ScoreManager>
         // Update points text
         UpdatePoints();
 
-        // Store HighScore on the local machine;
-        PlayerPrefs.SetInt("HighScore", points);
-        PlayerPrefs.GetInt("HighScore");
-
         // Check and update high score
         CheckHighScore();
     }
@@ -67,16 +63,17 @@ public class ScoreManager : Singleton<ScoreManager>
 
     void CheckHighScore()
     {
-        if(points > PlayerPrefs.GetInt("HighScore", 0))
+        if (points > highScore)
         {
-            PlayerPrefs.SetInt("HighScore", points);
+            // Update the high score and save it to PlayerPrefs
+            highScore = points;
+            PlayerPrefs.SetInt("HighScore", highScore);
             UpdateHighScoreText();
         }
     }
 
     void UpdateHighScoreText()
     {
-        HighScoreText.text = $"HighScore: {PlayerPrefs.GetInt("HighScore", 0)}";
+        HighScoreText.text = $"HighScore: {highScore}";
     }
-
 }
