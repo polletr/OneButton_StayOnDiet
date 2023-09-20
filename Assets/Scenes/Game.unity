@@ -1741,7 +1741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minInterval: 0.5
-  maxInterval: 4
+  maxInterval: 2.5
   prefabsLevel1:
   - {fileID: 9022137464418060155, guid: 0787dc19af7145d43bc0f54f8110e9e9, type: 3}
   - {fileID: 9022137464418060155, guid: 48b84d3aaee54064f91bd8add85e9fac, type: 3}

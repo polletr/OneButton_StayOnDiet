@@ -49,11 +49,12 @@ public class Spawner : MonoBehaviour
         {
             Invoke("FoodSpawn",0);
             timer = 0;
+            timerRange = Random.Range(minInterval, maxInterval);
+
         }
         else
         {
             timer += Time.deltaTime;
-            timerRange = Random.Range(minInterval, maxInterval);
         }
     }
 
