@@ -27,11 +27,15 @@ public class Spawner : MonoBehaviour
 
     private AudioSource _audioSource;
 
+    private float timerRange;
+
     // Start is called before the first frame update
     void Start()
     {
 
         _audioSource = GetComponent<AudioSource>();
+        timerRange = Random.Range(minInterval, maxInterval);
+
         //Creation of a execution in loop considering a specific delay
         //Invoke("FoodSpawn", 1);
     }
@@ -41,7 +45,7 @@ public class Spawner : MonoBehaviour
     {
         runningTime += Time.deltaTime;
 
-        if (timer >= Random.Range(minInterval, maxInterval))
+        if (timer >= timerRange)
         {
             Invoke("FoodSpawn",0);
             timer = 0;
@@ -49,6 +53,7 @@ public class Spawner : MonoBehaviour
         else
         {
             timer += Time.deltaTime;
+            timerRange = Random.Range(minInterval, maxInterval);
         }
     }
 
