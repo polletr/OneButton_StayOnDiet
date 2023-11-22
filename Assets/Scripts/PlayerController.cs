@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,6 +10,20 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private GameObject mouthClosed;
+
+    [SerializeField]
+    private GameObject tutorialText;
+
+    [SerializeField]
+    private Transform pointA;
+
+    [SerializeField]
+    private Transform pointB;
+
+    [SerializeField]
+    private float speed;
+
+    Vector3 target;
 
     private Collider headCollider;
 
@@ -27,24 +43,46 @@ public class PlayerController : MonoBehaviour
         mAnimator = GetComponent<Animator>();
 
         playerCollider.enabled = false;
+        target = pointA.transform.position;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        float step = speed * Time.deltaTime; // calculate distance to move
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(Mathf.Abs((transform.position.x - target.x)) <= 1f && target == pointA.position)
         {
-            playerCollider.enabled = true;
-            headCollider.enabled = false;
-            mAnimator.SetTrigger("Eating");
-            mouthOpen = true;
+            target = pointB.transform.position;
         }
+        else if(Mathf.Abs((transform.position.x - target.x)) <= 1f && target == pointB.position)
+        {
+            target = pointA.transform.position;
+        }
+
 
         if (mouthOpen)
         {
             closingMouthTimer += Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+                tutorialText.SetActive(false);
+                playerCollider.enabled = true;
+                headCollider.enabled = false;
+                mAnimator.SetTrigger("Eating");
+                mouthOpen = true;
+        }
+
+
+
+        if (Input.GetKey(KeyCode.Space) && !mouthOpen)
+        {
+            float direction = Mathf.Sign(target.x - transform.position.x);
+            Vector2 MovePos = new Vector2(transform.position.x + direction * step, transform.position.y);
+            transform.position = MovePos;
         }
 
         if (closingMouthTimer > 0.3f)
