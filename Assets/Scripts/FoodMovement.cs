@@ -1,29 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class FoodMovement : MonoBehaviour
 {
     #region Variable Declarations
     //food speed movement
-
-    private float speed = 2.0f;
+    private float speed = 2f;
 
     /*initialDecline = I will call in this variables the curve's heighest points
       finalDecline = I will call in this variables the curve's end point
     There are 4 possible curves:
 
     The first one is between the spawner and the player
-    The other 3 are possibilities of curve after the food hits the player's head after be rejected of him
+    The other 2 are possibilities of curve after the food hits the player's head after be rejected of him
      */
+    [SerializeField]
     private float initialDecline = 2.25f;
+    [SerializeField]
     private float finalDecline = 0f;
+
+    [SerializeField]
+    private float initialDeclineAlt = 3.25f;
+    [SerializeField]
+    private float finalDeclineAlt = 1.15f;
+
+    [SerializeField]
+    private float initialDeclineAlt2 = 0f;
+    [SerializeField]
+    private float finalDeclineAlt2 = -2.25f;
+
+    [SerializeField]
     private float initialDecline2 = -1.65f;
+    [SerializeField]
     private float finalDecline2 = -3.3f;
+    [SerializeField]
     private float initialDecline3 = 3.0f;
+    [SerializeField]
     private float finalDecline3 = 6.0f;
-    private float initialDecline4 = -3.0f;
-    private float finalDecline4 = -6.0f;
 
     public bool foodWasAccepted = false;
 
@@ -40,6 +55,9 @@ public class FoodMovement : MonoBehaviour
 
     private bool headHit = false;
 
+    [SerializeField]
+    private bool isJunkFood;
+
     private AudioSource _audioSource;
 
     [SerializeField]
@@ -54,6 +72,7 @@ public class FoodMovement : MonoBehaviour
     public GameObject targetFood;
 
     private GameObject background;
+    private int randomChoice2;
     #endregion
 
 
@@ -61,12 +80,12 @@ public class FoodMovement : MonoBehaviour
     void Start()
     {
         background = GameObject.Find("Background");
+        randomChoice2 = Random.Range(0, 3);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         if (headHit)
         {
             RandomCurve();
@@ -75,7 +94,6 @@ public class FoodMovement : MonoBehaviour
         {
             InitialCurve();
         }
-
         //When the food hit the floor
         if (transform.position.y <= lowerBound)
         {
@@ -88,35 +106,84 @@ public class FoodMovement : MonoBehaviour
 
     private void InitialCurve()
     {
+        Debug.Log("RandomChoice2: " + randomChoice2);
         #region If statement to determine the movement between the spawner and the player
-        if (transform.position.x >= initialDecline)
+        switch (randomChoice2)
         {
-            //Start the movement to the up and left side (curve movement)
-            transform.Translate(Vector3.up * Time.deltaTime * speed);
-            transform.Translate(Vector3.left * Time.deltaTime * speed);
+            case 0:
+                if (transform.position.x >= initialDecline)
+                {
+                    //Start the movement to the up and left side (curve movement)
+                    transform.Translate(Vector3.up * Time.deltaTime * speed);
+                    transform.Translate(Vector3.left * Time.deltaTime * speed);
+                }
+                else if (transform.position.x > finalDecline)
+                {
+                    //Start the movement to down and left side (curve movement)
+                    transform.Translate(Vector3.left * Time.deltaTime * speed);
+                    transform.Translate(Vector3.down * Time.deltaTime * speed);
+                }
+                else
+                {
+                    //Start the movement directly to the player's head (decline movement)
+                    transform.Translate(Vector3.down * Time.deltaTime * speed);
+                }
+                break;
+            case 1:
+                if (transform.position.x >= initialDeclineAlt)
+                {
+                    //Start the movement to the up and left side (curve movement)
+                    transform.Translate(Vector3.up * Time.deltaTime * speed);
+                    transform.Translate(Vector3.left * Time.deltaTime * speed);
+                }
+                else if (transform.position.x > finalDeclineAlt)
+                {
+                    //Start the movement to down and left side (curve movement)
+                    transform.Translate(Vector3.left * Time.deltaTime * speed);
+                    transform.Translate(Vector3.down * Time.deltaTime * speed);
+                }
+                else
+                {
+                    //Start the movement directly to the player's head (decline movement)
+                    transform.Translate(Vector3.down * Time.deltaTime * speed);
+                }
+                break;
+            case 2:
+                if (transform.position.x >= initialDeclineAlt2)
+                {
+                    //Start the movement to the up and left side (curve movement)
+                    transform.Translate(Vector3.up * Time.deltaTime * speed);
+                    transform.Translate(Vector3.left * Time.deltaTime * speed);
+                }
+                else if (transform.position.x > finalDeclineAlt2)
+                {
+                    //Start the movement to down and left side (curve movement)
+                    transform.Translate(Vector3.left * Time.deltaTime * speed);
+                    transform.Translate(Vector3.down * Time.deltaTime * speed);
+                }
+                else
+                {
+                    //Start the movement directly to the player's head (decline movement)
+                    transform.Translate(Vector3.down * Time.deltaTime * speed);
+                }
+                break;
+                #endregion
         }
-        else if (transform.position.x > finalDecline)
-        {
-            //Start the movement to down and left side (curve movement)
-            transform.Translate(Vector3.left * Time.deltaTime * speed);
-            transform.Translate(Vector3.down * Time.deltaTime * speed);
-        }
-        else
-        {
-            //Start the movement directly to the player's head (decline movement)
-            transform.Translate(Vector3.down * Time.deltaTime * speed);
-        }
-        #endregion
     }
-
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Funcao chamada");
         foodWasAccepted = true;
         if (other.CompareTag("Player"))
         {
            
             CalorieManager.Instance.AddCalorie(calories);
             ScoreManager.Instance.AddPoints(foodPoints);
+            
+            if(isJunkFood)
+            {
+                //CalorieManager.Instance.DepleteLife();
+            }
 
             other.GetComponentInParent<AudioSource>().clip = chewingClip;
             other.GetComponentInParent<AudioSource>().Play();
