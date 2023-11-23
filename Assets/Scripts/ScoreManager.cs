@@ -58,7 +58,7 @@ public class ScoreManager : Singleton<ScoreManager>
 
     public void UpdatePoints()
     {
-        PointsText.text = "Score : " + points;
+        PointsText.text = points.ToString();
     }
 
     void CheckHighScore()
@@ -74,6 +74,6 @@ public class ScoreManager : Singleton<ScoreManager>
 
     void UpdateHighScoreText()
     {
-        HighScoreText.text = $"HighScore: {highScore}";
+        HighScoreText.text = $"Best: {highScore}";
     }
 }

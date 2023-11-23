@@ -144,9 +144,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e3695a77eea2884ea5a8c4ee53c27ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialDecline: 2.25
+  finalDecline: 0
+  initialDeclineAlt: 3.25
+  finalDeclineAlt: 1.15
+  initialDeclineAlt2: 0
+  finalDeclineAlt2: -2.25
+  initialDecline2: -1.65
+  finalDecline2: -3.3
+  initialDecline3: 3
+  finalDecline3: 6
   foodWasAccepted: 0
-  calories: 50
+  calories: 80
   foodPoints: 40
+  isJunkFood: 0
   chewingClip: {fileID: 8300000, guid: b91a7de58a63f2141adcb2600aa71417, type: 3}
   splashClip: {fileID: 8300000, guid: 2f9dcaf68903c8e48b98ff2e32e2a023, type: 3}
   hitHeadClip: {fileID: 8300000, guid: 79307b52fd161e04d8d3b0a028a89598, type: 3}

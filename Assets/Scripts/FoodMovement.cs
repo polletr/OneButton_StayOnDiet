@@ -7,7 +7,7 @@ public class FoodMovement : MonoBehaviour
 {
     #region Variable Declarations
     //food speed movement
-    private float speed = 2f;
+    private float speed = 1.5f;
 
     /*initialDecline = I will call in this variables the curve's heighest points
       finalDecline = I will call in this variables the curve's end point
@@ -176,13 +176,13 @@ public class FoodMovement : MonoBehaviour
         foodWasAccepted = true;
         if (other.CompareTag("Player"))
         {
-           
+
             CalorieManager.Instance.AddCalorie(calories);
             ScoreManager.Instance.AddPoints(foodPoints);
-            
-            if(isJunkFood)
+
+            if (isJunkFood)
             {
-                //CalorieManager.Instance.DepleteLife();
+                CalorieManager.Instance.DepleteLife();
             }
 
             other.GetComponentInParent<AudioSource>().clip = chewingClip;
@@ -218,13 +218,13 @@ public class FoodMovement : MonoBehaviour
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
                 }
                 break;
-                
+
             case 1:
                 //Randomic movement two
                 if (transform.position.x <= initialDecline3)
                 {
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
-                    transform.Translate(Vector3.right * Time.deltaTime * speed);  
+                    transform.Translate(Vector3.right * Time.deltaTime * speed);
                 }
                 else
                 {
@@ -239,6 +239,5 @@ public class FoodMovement : MonoBehaviour
     {
         speed = newSpeed;
     }
-    
-}
 
+}
