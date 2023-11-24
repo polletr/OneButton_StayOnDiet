@@ -42,6 +42,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BG
+    uniqueID: 273426199
+    locked: 0
+  - name: UI Border
+    uniqueID: 4096065357
+    locked: 0
+  - name: UI
+    uniqueID: 542662823
+    locked: 0
   - name: Player
     uniqueID: 325150581
     locked: 0
