@@ -73,14 +73,26 @@ public class FoodMovement : MonoBehaviour
 
     private GameObject background;
     private int randomChoice2;
+
+    private ParticleSystem particleSys;
     #endregion
 
 
     // Start is called before the first frame update
     void Start()
     {
+        particleSys = GetComponent<ParticleSystem>();
         background = GameObject.Find("Background");
         randomChoice2 = Random.Range(0, 3);
+        if (isJunkFood)
+        {
+            particleSys.startColor = Color.red;
+        }
+        else
+        {
+            particleSys.startColor = Color.green;
+        }
+        particleSys.Play();
     }
 
     // Update is called once per frame

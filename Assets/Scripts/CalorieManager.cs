@@ -37,7 +37,7 @@ public class CalorieManager : Singleton<CalorieManager>
         fill.color = gradient.Evaluate(slider.normalizedValue);
         
         
-        if (currentCal >= maxCal || currentLives <= 0)
+        if (currentCal <= 0 || currentLives <= 0)
         {
             SceneManager.LoadSceneAsync(2);
         }
@@ -46,6 +46,8 @@ public class CalorieManager : Singleton<CalorieManager>
     public void AddCalorie(float foodCal)
     {
         currentCal += foodCal;
+        if (currentCal >= maxCal)
+            currentCal = maxCal;
     }
 
     public void IncreaseHunger(float multiplier)
