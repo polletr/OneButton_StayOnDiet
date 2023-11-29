@@ -21,6 +21,9 @@ public class CalorieManager : Singleton<CalorieManager>
     public Slider slider;
     public Gradient gradient;
     public Image fill;
+    public Image[] hearts;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
 
     // Start is called before the first frame update
     void Start()
@@ -36,10 +39,18 @@ public class CalorieManager : Singleton<CalorieManager>
         slider.value = currentCal;
         fill.color = gradient.Evaluate(slider.normalizedValue);
         
+        foreach (Image img in hearts)
+        {
+            img.sprite = emptyHeart;
+        }
+        for (int i = 0; i < currentLives; i++)
+        {
+            hearts[i].sprite = fullHeart;
+        }
         
         if (currentCal <= 0 || currentLives <= 0)
         {
-            SceneManager.LoadSceneAsync(2);
+            SceneManager.LoadSceneAsync("GameOver");
         }
     }
 

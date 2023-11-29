@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FoodMovement : MonoBehaviour
@@ -16,29 +17,17 @@ public class FoodMovement : MonoBehaviour
     The first one is between the spawner and the player
     The other 2 are possibilities of curve after the food hits the player's head after be rejected of him
      */
-    [SerializeField]
-    private float initialDecline = 2.25f;
-    [SerializeField]
-    private float finalDecline = 0f;
+
+    Vector2 positionA = new Vector2(-2.5f, 0f);
+    Vector2 positionB = new Vector2(2.5f, 0f);
 
     [SerializeField]
-    private float initialDeclineAlt = 3.25f;
+    private float leftCurve = -1.3f;
     [SerializeField]
-    private float finalDeclineAlt = 1.15f;
+    private float rightCurve = 3.0f;
 
-    [SerializeField]
-    private float initialDeclineAlt2 = 0f;
-    [SerializeField]
-    private float finalDeclineAlt2 = -2.25f;
-
-    [SerializeField]
-    private float initialDecline2 = -1.65f;
-    [SerializeField]
-    private float finalDecline2 = -3.3f;
-    [SerializeField]
-    private float initialDecline3 = 3.0f;
-    [SerializeField]
-    private float finalDecline3 = 6.0f;
+    float currentPosition = 0f;
+    bool shooting = false;
 
     public bool foodWasAccepted = false;
 
@@ -52,6 +41,8 @@ public class FoodMovement : MonoBehaviour
     private int foodPoints;
 
     private int randomChoice;
+
+    private float totalDistance;
 
     private bool headHit = false;
 
@@ -72,7 +63,6 @@ public class FoodMovement : MonoBehaviour
     public GameObject targetFood;
 
     private GameObject background;
-    private int randomChoice2;
 
     private ParticleSystem particleSys;
     #endregion
@@ -81,9 +71,15 @@ public class FoodMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        float xA = positionA.x;
+        float yA = positionA.y;
+
+        float xB = positionB.x;
+        float yB = positionB.y;
+
         particleSys = GetComponent<ParticleSystem>();
         background = GameObject.Find("Background");
-        randomChoice2 = Random.Range(0, 3);
+
         if (isJunkFood)
         {
             particleSys.startColor = Color.red;
@@ -93,102 +89,59 @@ public class FoodMovement : MonoBehaviour
             particleSys.startColor = Color.green;
         }
         particleSys.Play();
+
+        totalDistance = Random.Range(positionA.x, positionB.x);
+
+
+        // Definir destino aleatório entre PointA e PointB
+        //Vector3 randomDestination = new Vector3(Random.Range(xA, xB), Random.Range(yA, yB), 0f);
+        // Calcular altura e distância total para o movimento parabólico
+        //CalculateParabolicValues(randomDestination);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
+
+
         if (headHit)
         {
+            Debug.Log("Bateu na cabeca do personagem");
             RandomCurve();
         }
         else
         {
-            InitialCurve();
+            Debug.Log("Movimento Parabolico iniciado");
+            currentPosition += Time.deltaTime / 2.0f;
+            this.transform.localPosition = new Vector3(totalDistance / 2.0f + currentPosition * totalDistance / 2.0f, 10f - Mathf.Pow(currentPosition, 2.0f) * 10f, 0.0f);
+            Debug.LogFormat("Current position is {0}, {1}", currentPosition, this.transform.localPosition.y);
         }
-        //When the food hit the floor
+
         if (transform.position.y <= lowerBound)
         {
             background.GetComponent<AudioSource>().clip = splashClip;
             background.GetComponent<AudioSource>().Play();
 
             Destroy(gameObject);
+            Debug.Log("Food Destroyed");
         }
     }
 
-    private void InitialCurve()
+/*    void CalculateParabolicValues(Vector3 destination)
     {
-        Debug.Log("RandomChoice2: " + randomChoice2);
-        #region If statement to determine the movement between the spawner and the player
-        switch (randomChoice2)
-        {
-            case 0:
-                if (transform.position.x >= initialDecline)
-                {
-                    //Start the movement to the up and left side (curve movement)
-                    transform.Translate(Vector3.up * Time.deltaTime * speed);
-                    transform.Translate(Vector3.left * Time.deltaTime * speed);
-                }
-                else if (transform.position.x > finalDecline)
-                {
-                    //Start the movement to down and left side (curve movement)
-                    transform.Translate(Vector3.left * Time.deltaTime * speed);
-                    transform.Translate(Vector3.down * Time.deltaTime * speed);
-                }
-                else
-                {
-                    //Start the movement directly to the player's head (decline movement)
-                    transform.Translate(Vector3.down * Time.deltaTime * speed);
-                }
-                break;
-            case 1:
-                if (transform.position.x >= initialDeclineAlt)
-                {
-                    //Start the movement to the up and left side (curve movement)
-                    transform.Translate(Vector3.up * Time.deltaTime * speed);
-                    transform.Translate(Vector3.left * Time.deltaTime * speed);
-                }
-                else if (transform.position.x > finalDeclineAlt)
-                {
-                    //Start the movement to down and left side (curve movement)
-                    transform.Translate(Vector3.left * Time.deltaTime * speed);
-                    transform.Translate(Vector3.down * Time.deltaTime * speed);
-                }
-                else
-                {
-                    //Start the movement directly to the player's head (decline movement)
-                    transform.Translate(Vector3.down * Time.deltaTime * speed);
-                }
-                break;
-            case 2:
-                if (transform.position.x >= initialDeclineAlt2)
-                {
-                    //Start the movement to the up and left side (curve movement)
-                    transform.Translate(Vector3.up * Time.deltaTime * speed);
-                    transform.Translate(Vector3.left * Time.deltaTime * speed);
-                }
-                else if (transform.position.x > finalDeclineAlt2)
-                {
-                    //Start the movement to down and left side (curve movement)
-                    transform.Translate(Vector3.left * Time.deltaTime * speed);
-                    transform.Translate(Vector3.down * Time.deltaTime * speed);
-                }
-                else
-                {
-                    //Start the movement directly to the player's head (decline movement)
-                    transform.Translate(Vector3.down * Time.deltaTime * speed);
-                }
-                break;
-                #endregion
-        }
+        // Calcular altura e distância total para o movimento parabólico
+        float deltaY = destination.y - 6f;
+        float deltaX = destination.x - 4f;
+        totalHeight = Mathf.Max(deltaY, 8.5f); // Maximum Height Peak
+        Debug.Log(totalHeight);
+        totalDistance = Mathf.Abs(deltaX);
     }
-    private void OnTriggerEnter(Collider other)
+*/
+    void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Funcao chamada");
         foodWasAccepted = true;
         if (other.CompareTag("Player"))
         {
-
             CalorieManager.Instance.AddCalorie(calories);
             ScoreManager.Instance.AddPoints(foodPoints);
 
@@ -204,23 +157,20 @@ public class FoodMovement : MonoBehaviour
 
         if (other.CompareTag("MouthClosed"))
         {
-            randomChoice = Random.Range(0, 2); //This variable will chose between the tree possibilities of curve movement
+            randomChoice = Random.Range(0, 2);
             headHit = true;
 
             other.GetComponentInParent<AudioSource>().clip = hitHeadClip;
             other.GetComponentInParent<AudioSource>().Play();
-
-
         }
-
     }
-    private void RandomCurve()
+
+    void RandomCurve()
     {
         switch (randomChoice)
         {
             case 0:
-                //Randomic movement one
-                if (transform.position.x >= initialDecline2)
+                if (transform.position.x >= leftCurve)
                 {
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
                     transform.Translate(Vector3.left * Time.deltaTime * speed);
@@ -232,8 +182,7 @@ public class FoodMovement : MonoBehaviour
                 break;
 
             case 1:
-                //Randomic movement two
-                if (transform.position.x <= initialDecline3)
+                if (transform.position.x <= rightCurve)
                 {
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
                     transform.Translate(Vector3.right * Time.deltaTime * speed);
@@ -243,7 +192,6 @@ public class FoodMovement : MonoBehaviour
                     transform.Translate(Vector3.down * Time.deltaTime * speed);
                 }
                 break;
-
         }
     }
 
@@ -251,5 +199,4 @@ public class FoodMovement : MonoBehaviour
     {
         speed = newSpeed;
     }
-
 }
